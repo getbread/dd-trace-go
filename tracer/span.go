@@ -219,6 +219,8 @@ func (s *Span) Finish() {
 	}
 	s.Unlock()
 
+	fmt.Printf("------------ SPAN FINISHED with ID: %d & Service: %s\n", s.SpanID, s.Service)
+
 	if finished {
 		// no-op, called twice, no state change...
 		return
@@ -241,6 +243,7 @@ func (s *Span) Finish() {
 		return
 	}
 
+	fmt.Println("----------- Calling `AckFinish`")
 	s.buffer.AckFinish() // put data in channel only if trace is completely finished
 
 	// It's important that when Finish() exits, the data is put in
