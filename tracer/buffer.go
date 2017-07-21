@@ -98,7 +98,12 @@ func (tb *spanBuffer) doFlush() {
 	tb.Lock()
 	defer tb.Unlock()
 
-	fmt.Printf("------------------ DoFlush called with spans: %#v\n", tb.spans)
+	fmt.Printf("------------------ DoFlush called with spans: \n")
+	for i, span := range tb.spans {
+		fmt.Printf("Span #%d: %s\n", i, span.String())
+
+	}
+	fmt.Println("-------------------")
 	tb.channels.pushTrace(tb.spans)
 	tb.spans = nil
 	tb.finishedSpans = 0 // important, because a buffer can be used for several flushes
