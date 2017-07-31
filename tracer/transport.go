@@ -92,6 +92,14 @@ func (t *httpTransport) SendTraces(traces [][]*Span) (*http.Response, error) {
 	encoder := t.pool.Borrow()
 	defer t.pool.Return(encoder)
 
+	fmt.Printf("[SendTraces] traces in flight:\n")
+	for i, t := range traces {
+		fmt.Printf("[SendTraces] Traces #%d\n", i)
+		for j, s := range t {
+			fmt.Printf("[SentTraces] Span #%d: %+v", *s)
+		}
+	}
+
 	// encode the spans and return the error if any
 	err := encoder.EncodeTraces(traces)
 	if err != nil {
