@@ -97,6 +97,9 @@ func (t *httpTransport) SendTraces(traces [][]*Span) (*http.Response, error) {
 		fmt.Printf("[SendTraces] Traces #%d\n", i)
 		for j, s := range t {
 			fmt.Printf("[SentTraces] Span #%d: %+v\n", j, *s)
+			if s.buffer != nil {
+				fmt.Printf("[SentTraces] Span #%d buffer length: %d\n", len(j, *s.buffer.spans))
+			}
 		}
 	}
 
